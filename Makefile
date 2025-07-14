@@ -59,6 +59,7 @@ endif
 
 # NEW CHANGE
 setup-full: submodules
+	@echo "Using MAKEFILE FROM: $(CURDIR)"
 	pip install ninja cmake pybind11 numpy psutil
 	pip install -e . --config-settings=build-script=local_setup.py
 	pip install transformer_engine[pytorch]==1.13.0 --no-build-isolation
