@@ -101,7 +101,9 @@ def validate_and_update_archs(archs):
 cmdclass = {}
 ext_modules = []
 
-subprocess.run(["git", "submodule", "update", "--init", "csrc/cutlass"])
+# NEW CHANGE
+subprocess.run(["git", "submodule", "update", "--init", "../cutlass"])
+subprocess.run(["git", "submodule", "update", "--init", "../cutlass"])
 
 print("\n\ntorch.__version__  = {}\n\n".format(torch.__version__))
 TORCH_MAJOR = int(torch.__version__.split(".")[0])
