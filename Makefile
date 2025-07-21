@@ -61,16 +61,13 @@ endif
 setup-full: submodules
 	@echo "Using MAKEFILE FROM: $(CURDIR)"
 	pip install ninja cmake pybind11 numpy psutil
-	pip install -e . --config-settings=build-script=local_setup.py
-	pip install transformer_engine[pytorch]==1.13.0 --no-build-isolation
-ifneq ($(UNAME_S),Darwin) # if current OS is not darwin (the MacOS uname field so if current os is not MacOS) then run no build isolation --> check for cuda
-   cd vortex/ops/attn && MAX_JOBS=32 pip install -v -e  . --no-build-isolation
-else
-   $(info Detected macOS, skipping CUDA attn build)
-endif
+	pip install transformer-engine-torch==2.3.0
+	pip install flash-attn==2.8.0.post2
+	pip install -e .
 
 setup-vortex-ops: submodules _check_env_enabled _setup_missing_env
 	pip install ninja cmake pybind11 numpy psutil
+	cd vortex/ops/hyenax && pip install -e .
 	pip install -e . --config-settings=build-script=local_setup.py
 
 setup-vortex-ops-hyenax: _check_env_enabled _setup_missing_env
